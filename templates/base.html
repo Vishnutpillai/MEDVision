@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}MedVision AI{% endblock %}
+    </title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<div class="app-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="bi bi-heart-pulse-fill"></i>
+            </div>
+
+            <div>
+                <h5>MedVision</h5>
+                <span>AI Platform</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-section-title">
+                MAIN
+            </p>
+
+            <a href="{{ url_for('dashboard') }}"
+                class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{{ url_for('cases') }}"
+                class="nav-link {% if request.endpoint == 'cases' %}active{% endif %}">
+                <i class="bi bi-folder2-open"></i>
+                <span>Cases</span>
+            </a>
+
+            <a href="{{ url_for('new_case') }}" class="nav-link {% if request.endpoint == 'new_case' %}active{% endif %}">
+                <i class="bi bi-plus-circle"></i>
+                <span>New Case</span>
+            </a>
+
+            <p class="nav-section-title">
+                AI TOOLS
+            </p>
+
+            <a href="{{ url_for('chat') }}"
+                class="nav-link {% if request.endpoint == 'chat' %}active{% endif %}">
+                <i class="bi bi-chat-dots"></i>
+                <span>AI Chat</span>
+            </a>
+            <a href="{{ url_for('review') }}" class="nav-link {% if request.endpoint == 'review' %}active{% endif %}">
+                <i class="bi bi-clipboard2-check"></i>
+                <span>Review</span>
+            </a>
+
+            <a href="{{ url_for('analytics') }}"
+                class="nav-link {% if request.endpoint == 'analytics' %}active{% endif %}">
+                <i class="bi bi-bar-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+
+            <p class="nav-section-title">
+                SYSTEM
+            </p>
+
+            <a href="{{ url_for('settings') }}"
+                class="nav-link {% if request.endpoint == 'settings' %}active{% endif %}">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+
+                <div>
+                    <small>System Status</small>
+                    <strong>Operational</strong>
+                </div>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main Area -->
+    <div class="main-area">
+
+        <!-- Top Header -->
+        <header class="topbar">
+
+            <button
+                type="button"
+                class="mobile-menu"
+                aria-label="Open navigation">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+            <div class="topbar-title">
+                <span class="breadcrumb-text">
+                    MedVision AI
+                </span>
+
+                <span class="breadcrumb-separator">
+                    /
+                </span>
+
+                <span class="breadcrumb-current">
+                    {% block page_name %}Dashboard{% endblock %}
+                </span>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="bi bi-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        VT
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>MedVision User</strong>
+                        <small>AI Analyst</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Page Content -->
+        <main class="content">
+
+            {% block content %}
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- Custom JS -->
+<script
+    src="{{ url_for('static', filename='js/app.js') }}">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,595 @@
+{% extends "base.html" %}
+
+{% block title %}
+MedVision AI | Dashboard
+{% endblock %}
+
+{% block page_name %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================
+     PAGE HEADER
+========================================= -->
+
+<div class="page-header">
+
+    <div>
+        <h1>Dashboard</h1>
+
+        <p>
+            Monitor medical AI cases, analysis activity,
+            and system status.
+        </p>
+    </div>
+
+    <div>
+
+        <a href="{{ url_for('new_case') }}"
+           class="btn btn-primary">
+
+            <i class="bi bi-plus-lg"></i>
+
+            New Case
+
+        </a>
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     KPI CARDS
+========================================= -->
+
+<div class="row g-4 mb-4">
+
+    <!-- Total Cases -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+
+                <i class="bi bi-folder2-open"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>Total Cases</span>
+
+                <h3>0</h3>
+
+                <small>No cases created yet</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Completed -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+
+                <i class="bi bi-check-circle"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>Completed</span>
+
+                <h3>0</h3>
+
+                <small>Successfully analyzed</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Pending -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon orange">
+
+                <i class="bi bi-hourglass-split"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>Pending</span>
+
+                <h3>0</h3>
+
+                <small>Awaiting analysis</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Review -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+
+                <i class="bi bi-clipboard-check"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>Need Review</span>
+
+                <h3>0</h3>
+
+                <small>Require human review</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     MAIN DASHBOARD ROW
+========================================= -->
+
+<div class="row g-4 mb-4">
+
+
+    <!-- CASE ACTIVITY -->
+
+    <div class="col-xl-8">
+
+        <div class="dashboard-card">
+
+            <div class="card-header-custom">
+
+                <div>
+
+                    <h5>Case Activity</h5>
+
+                    <p>
+                        Medical AI analysis activity
+                    </p>
+
+                </div>
+
+                <select
+                    class="form-select form-select-sm"
+                    style="width: 120px;">
+
+                    <option>Last 7 days</option>
+
+                    <option>Last 30 days</option>
+
+                    <option>Last 90 days</option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                style="
+                    height: 280px;
+                    margin-top: 25px;
+                ">
+
+                <canvas id="caseActivityChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- AI SYSTEM STATUS -->
+
+    <div class="col-xl-4">
+
+        <div class="dashboard-card">
+
+            <div class="card-header-custom">
+
+                <div>
+
+                    <h5>AI System Status</h5>
+
+                    <p>
+                        Current service availability
+                    </p>
+
+                </div>
+
+                <span
+                    class="badge text-bg-success">
+
+                    Operational
+
+                </span>
+
+            </div>
+
+
+            <!-- X-RAY MODEL -->
+
+            <div class="ai-status">
+
+                <div class="ai-status-icon">
+
+                    <i class="bi bi-image"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        X-Ray Analysis Model
+                    </strong>
+
+                    <span>
+                        Ready
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- RAG -->
+
+            <div class="ai-status">
+
+                <div class="ai-status-icon">
+
+                    <i class="bi bi-database"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Medical RAG Engine
+                    </strong>
+
+                    <span>
+                        Ready
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI -->
+
+            <div class="ai-status">
+
+                <div class="ai-status-icon">
+
+                    <i class="bi bi-stars"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        AI Assistant
+                    </strong>
+
+                    <span>
+                        Ready
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- API -->
+
+            <div class="ai-status">
+
+                <div class="ai-status-icon">
+
+                    <i class="bi bi-cloud-check"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Backend API
+                    </strong>
+
+                    <span>
+                        Connected
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     RECENT CASES
+========================================= -->
+
+<div class="row g-4 mb-4">
+
+    <div class="col-12">
+
+        <div class="dashboard-card">
+
+            <div class="card-header-custom mb-3">
+
+                <div>
+
+                    <h5>Recent Cases</h5>
+
+                    <p>
+                        Latest medical AI analysis cases
+                    </p>
+
+                </div>
+
+                <a
+                    href="{{ url_for('cases') }}"
+                    class="view-link">
+
+                    View all
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table
+                    class="table align-middle mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Case ID</th>
+
+                            <th>Created</th>
+
+                            <th>X-Ray</th>
+
+                            <th>Report</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td colspan="6">
+
+                                <div class="empty-state">
+
+                                    <div class="empty-icon">
+
+                                        <i class="bi bi-folder-plus"></i>
+
+                                    </div>
+
+                                    <h5>
+                                        No cases yet
+                                    </h5>
+
+                                    <p>
+                                        Create your first case
+                                        to start an AI-assisted
+                                        medical analysis workflow.
+                                    </p>
+
+                                    <a
+                                        href="{{ url_for('new_case') }}"
+                                        class="btn btn-primary">
+
+                                        <i class="bi bi-plus-lg"></i>
+
+                                        Create First Case
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     MEDICAL AI DISCLAIMER
+========================================= -->
+
+<div class="disclaimer-card mb-4">
+
+    <i class="bi bi-shield-check"></i>
+
+    <div>
+
+        <strong>
+            Medical AI Research & Decision-Support Prototype
+        </strong>
+
+        <p>
+            MedVision AI is an educational and research
+            prototype designed to demonstrate multimodal
+            medical AI workflows. AI-generated results are
+            not a medical diagnosis and should not be used
+            as a substitute for professional clinical
+            judgment.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+    /*
+     * =========================================
+     * CASE ACTIVITY CHART
+     * =========================================
+     */
+
+    const chartElement =
+        document.getElementById("caseActivityChart");
+
+
+    if (chartElement) {
+
+        new Chart(
+            chartElement,
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels: [
+                        "Mon",
+                        "Tue",
+                        "Wed",
+                        "Thu",
+                        "Fri",
+                        "Sat",
+                        "Sun"
+                    ],
+
+                    datasets: [
+
+                        {
+
+                            label: "Cases",
+
+                            data: [
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0,
+                                0
+                            ],
+
+                            tension: 0.4,
+
+                            fill: true,
+
+                            borderWidth: 2
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+
+                            display: false
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero: true,
+
+                            ticks: {
+
+                                precision: 0
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+</script>
+
+{% endblock %}
