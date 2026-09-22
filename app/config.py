@@ -11,6 +11,18 @@ class Config:
         "development-secret-key"
     )
 
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL"
+    )
+
+    SESSION_COOKIE_HTTPONLY = True
+
+    SESSION_COOKIE_SAMESITE = "Lax"
+
+    SESSION_COOKIE_SECURE = False
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
     MAX_CONTENT_LENGTH = (
         int(
             os.getenv(
@@ -24,11 +36,6 @@ class Config:
 
     GROQ_API_KEY = os.getenv(
         "GROQ_API_KEY",
-        ""
-    )
-
-    DATABASE_URL = os.getenv(
-        "DATABASE_URL",
         ""
     )
 
@@ -56,3 +63,7 @@ class TestingConfig(Config):
 
     TESTING = True
     DEBUG = False
+
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL"
+    )
