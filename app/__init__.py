@@ -2,6 +2,7 @@ import os
 import secrets
 
 from datetime import datetime, timezone
+from turtle import title
 
 from flask import (
     Flask,
@@ -709,14 +710,17 @@ def create_app():
                     url_for("new_case")
                 )
 
+            now = datetime.now(timezone.utc)
+
             case = Case(
                 user_id=current_user.id,
                 case_reference=generate_case_reference(),
                 patient_reference=patient_reference,
                 title=title,
                 status="active",
+                created_at=now,
+                updated_at=now
             )
-
             try:
 
                 db.session.add(

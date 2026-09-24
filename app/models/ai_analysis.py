@@ -22,12 +22,12 @@ class AIAnalysis(db.Model):
     )
 
     model_name = db.Column(
-        db.String(100),
+        db.String(150),
         nullable=False
     )
 
     model_version = db.Column(
-        db.String(50),
+        db.String(100),
         nullable=True
     )
 

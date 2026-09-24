@@ -1,16 +1,15 @@
 from datetime import datetime, timezone
 
 from flask_login import UserMixin
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import (
+    check_password_hash,
+    generate_password_hash
+)
 
 from app.extensions import db
 
 
 class User(UserMixin, db.Model):
-    """
-    Application user model.
-    """
-
     __tablename__ = "users"
 
     id = db.Column(
@@ -47,20 +46,16 @@ class User(UserMixin, db.Model):
         nullable=False
     )
 
-    def set_password(self, password):
-        """
-        Hash and store the user's password.
-        """
+    cases = db.relationship(
+        "Case",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
 
-        self.password_hash = generate_password_hash(
-            password
-        )
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        """
-        Verify a password against the stored hash.
-        """
-
         return check_password_hash(
             self.password_hash,
             password

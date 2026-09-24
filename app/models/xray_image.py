@@ -28,32 +28,17 @@ class XRayImage(db.Model):
 
     file_path = db.Column(
         db.String(500),
-        nullable=True
+        nullable=False
     )
 
     image_format = db.Column(
         db.String(20),
-        nullable=True
+        nullable=False
     )
 
     file_size = db.Column(
         db.Integer,
-        nullable=True
-    )
-
-    image_width = db.Column(
-        db.Integer,
-        nullable=True
-    )
-
-    image_height = db.Column(
-        db.Integer,
-        nullable=True
-    )
-
-    quality_score = db.Column(
-        db.Float,
-        nullable=True
+        nullable=False
     )
 
     uploaded_at = db.Column(

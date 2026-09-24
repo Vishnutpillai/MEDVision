@@ -28,22 +28,11 @@ class MedicalReport(db.Model):
 
     file_path = db.Column(
         db.String(500),
-        nullable=True
+        nullable=False
     )
 
     extracted_text = db.Column(
         db.Text,
-        nullable=True
-    )
-
-    processing_status = db.Column(
-        db.String(30),
-        nullable=False,
-        default="pending"
-    )
-
-    chunk_count = db.Column(
-        db.Integer,
         nullable=True
     )
 
