@@ -62,9 +62,9 @@ Dashboard
 
                 <span>Total Cases</span>
 
-                <h3>0</h3>
+                <h3>{{ total_cases }}</h3>
 
-                <small>No cases created yet</small>
+                <small>Active medical cases</small>
 
             </div>
 
@@ -89,7 +89,7 @@ Dashboard
 
                 <span>Completed</span>
 
-                <h3>0</h3>
+                <h3>{{ completed_cases }}</h3>
 
                 <small>Successfully analyzed</small>
 
@@ -116,7 +116,7 @@ Dashboard
 
                 <span>Pending</span>
 
-                <h3>0</h3>
+                <h3>{{ pending_cases }}</h3>
 
                 <small>Awaiting analysis</small>
 
@@ -143,7 +143,7 @@ Dashboard
 
                 <span>Need Review</span>
 
-                <h3>0</h3>
+                <h3>{{ review_cases }}</h3>
 
                 <small>Require human review</small>
 

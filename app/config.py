@@ -1,18 +1,36 @@
 import os
 
+from dotenv import load_dotenv
+
+
+# ============================================================
+# LOAD ENVIRONMENT VARIABLES
+# ============================================================
+
+load_dotenv()
+
+
+# ============================================================
+# BASE CONFIGURATION
+# ============================================================
 
 class Config:
-    """
-    Base application configuration.
-    """
 
     SECRET_KEY = os.getenv(
         "SECRET_KEY",
-        "development-secret-key"
+        "dev-secret-key-change-me"
     )
 
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL"
+    )
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    MAX_CONTENT_LENGTH = (
+        int(os.getenv("MAX_UPLOAD_SIZE_MB", "16"))
+        * 1024
+        * 1024
     )
 
     SESSION_COOKIE_HTTPONLY = True
@@ -21,49 +39,33 @@ class Config:
 
     SESSION_COOKIE_SECURE = False
 
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    MAX_CONTENT_LENGTH = (
-        int(
-            os.getenv(
-                "MAX_UPLOAD_SIZE_MB",
-                "10"
-            )
-        )
-        * 1024
-        * 1024
-    )
-
-    GROQ_API_KEY = os.getenv(
-        "GROQ_API_KEY",
-        ""
-    )
-
+# ============================================================
+# DEVELOPMENT CONFIGURATION
+# ============================================================
 
 class DevelopmentConfig(Config):
-    """
-    Development configuration.
-    """
 
     DEBUG = True
 
 
+# ============================================================
+# PRODUCTION CONFIGURATION
+# ============================================================
+
 class ProductionConfig(Config):
-    """
-    Production configuration.
-    """
 
     DEBUG = False
 
+    SESSION_COOKIE_SECURE = True
+
+
+# ============================================================
+# TESTING CONFIGURATION
+# ============================================================
 
 class TestingConfig(Config):
-    """
-    Testing configuration.
-    """
 
     TESTING = True
-    DEBUG = False
 
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL"
-    )
+    WTF_CSRF_ENABLED = False

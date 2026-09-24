@@ -1,21 +1,177 @@
 {% extends "base.html" %}
 
-{% block title %}MedVision AI | New Case{% endblock %}
-
-{% block page_name %}New Case{% endblock %}
+{% block title %}
+New Case | MedVision AI
+{% endblock %}
 
 {% block content %}
 
-<div class="page-header">
-    <div>
-        <h1>New Case</h1>
-        <p>Create a new medical AI analysis case.</p>
-    </div>
-</div>
+<div class="container-fluid">
 
-<div class="dashboard-card">
-    <h5>New Case</h5>
-    <p>X-ray and medical report upload will be added here.</p>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h1 class="h3 mb-1">
+                Create New Case
+            </h1>
+
+            <p class="text-muted mb-0">
+                Create a new medical AI analysis case.
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('cases') }}"
+            class="btn btn-outline-secondary"
+        >
+            Back to Cases
+        </a>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h5 class="mb-4">
+                        Case Information
+                    </h5>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('new_case') }}"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="{{ csrf_token() }}"
+                        >
+
+                        <div class="mb-3">
+
+                            <label
+                                for="title"
+                                class="form-label"
+                            >
+                                Case Title
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="title"
+                                name="title"
+                                placeholder="Example: Chest X-Ray Review"
+                                maxlength="200"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label
+                                for="patient_reference"
+                                class="form-label"
+                            >
+                                Patient Reference
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="patient_reference"
+                                name="patient_reference"
+                                placeholder="Example: PAT-0001"
+                                maxlength="100"
+                                required
+                            >
+
+                            <div class="form-text">
+                                Use a non-identifying reference.
+                                Do not enter names, phone numbers,
+                                addresses, or government IDs.
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                Create Case
+                            </button>
+
+                            <a
+                                href="{{ url_for('cases') }}"
+                                class="btn btn-outline-secondary"
+                            >
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <h6>
+                        Case Workflow
+                    </h6>
+
+                    <ol class="small text-muted">
+
+                        <li class="mb-2">
+                            Create case
+                        </li>
+
+                        <li class="mb-2">
+                            Add X-ray
+                        </li>
+
+                        <li class="mb-2">
+                            Add medical report
+                        </li>
+
+                        <li class="mb-2">
+                            Run AI analysis
+                        </li>
+
+                        <li>
+                            Review AI results
+                        </li>
+
+                    </ol>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 {% endblock %}
